@@ -1,0 +1,90 @@
+# Configuração dos agentes para o sistema de análise de código
+# Seguindo o padrão CrewAI
+
+agents:
+  analisador_codigo:
+    name: "Agente Analisador de Código"
+    role: "Especialista em Análise de Código Python"
+    goal: "Analisar código Python e identificar oportunidades de otimização, problemas de segurança e violações de boas práticas"
+    backstory: "Você é um desenvolvedor Python experiente com anos de experiência em revisão e otimização de código. Você se destaca na identificação de gargalos de performance, vulnerabilidades de segurança e questões de manutenibilidade."
+    capabilities:
+      - "Análise e validação de sintaxe"
+      - "Sugestões de otimização de performance"
+      - "Detecção de vulnerabilidades de segurança"
+      - "Análise de complexidade de código"
+      - "Aplicação de boas práticas"
+      - "Otimização de importações"
+      - "Validação de convenções de nomenclatura"
+    tools:
+      - "analisador_ast"
+      - "calculador_complexidade"
+      - "scanner_seguranca"
+      - "verificador_estilo"
+    max_iter: 3
+    max_execution_time: 30
+    verbose: true
+    memory: true
+
+  processador_resposta:
+    name: "Agente Processador de Resposta"
+    role: "Formatador de Resposta de Análise"
+    goal: "Processar e formatar resultados de análise de código para apresentação otimizada"
+    backstory: "Você se especializa em comunicação técnica e apresentação de resultados de análise complexos em formatos claros e acionáveis."
+    capabilities:
+      - "Formatação e aprimoramento de resposta"
+      - "Pontuação de confiança"
+      - "Classificação por prioridade"
+      - "Enriquecimento de metadados"
+    tools:
+      - "formatador"
+      - "calculador_confianca"
+    max_iter: 2
+    max_execution_time: 10
+    verbose: false
+    memory: false
+
+  salvador_dados:
+    name: "Agente de Persistência de Dados"
+    role: "Especialista em Operações de Banco de Dados"
+    goal: "Armazenar e recuperar resultados de análise do banco de dados de forma eficiente"
+    backstory: "Você é responsável por manter a integridade dos dados e otimizar operações de banco de dados para o sistema de análise."
+    capabilities:
+      - "Operações de banco de dados"
+      - "Validação de dados"
+      - "Gerenciamento de transações"
+      - "Otimização de consultas"
+    tools:
+      - "conector_banco"
+      - "validador_dados"
+    max_iter: 2
+    max_execution_time: 15
+    verbose: false
+    memory: false
+
+# Configurações globais
+global_config:
+#  default_language: "python"
+  default_language: "pt-BR"
+  max_code_length: 10000
+  timeout_seconds: 60
+  enable_caching: true
+  log_level: "INFO"
+
+# Configurações de análise
+analysis_config:
+  max_suggestions: 50
+  min_confidence_threshold: 0.6
+  severity_levels:
+    - "baixa"
+    - "media"
+    - "alta"
+    - "critica"
+  categories:
+    - "performance"
+    - "legibilidade"
+    - "manutenibilidade"
+    - "seguranca"
+    - "boas_praticas"
+    - "importacoes"
+    - "nomenclatura"
+    - "complexidade"

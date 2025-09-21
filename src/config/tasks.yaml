@@ -1,0 +1,90 @@
+# Configuração das tarefas do sistema de análise de código
+# Seguindo o padrão CrewAI para orquestração de tarefas
+
+tasks:
+  tarefa_analise_codigo:
+    name: "Análise de Código Python"
+    description: "Analisar o trecho de código Python fornecido para identificar oportunidades de otimização, problemas de segurança e violações de boas práticas"
+    expected_output: "Um relatório de análise abrangente com sugestões categorizadas por tipo e severidade, em português"
+    agent: "analisador_codigo"
+    priority: "alta"
+    dependencies: []
+    tools_required:
+      - "analisador_ast"
+      - "calculador_complexidade"
+      - "scanner_seguranca"
+    validation_rules:
+      - "codigo_nao_pode_estar_vazio"
+      - "tamanho_codigo_dentro_limites"
+    timeout: 30
+    retry_count: 2
+
+  tarefa_processamento_resposta:
+    name: "Processamento de Resposta da Análise"
+    description: "Processar e enriquecer os resultados brutos da análise com metadados, pontuações de confiança e formatação"
+    expected_output: "Resposta de análise aprimorada com formatação adequada e metadados, em português"
+    agent: "processador_resposta"
+    priority: "media"
+    dependencies: ["tarefa_analise_codigo"]
+    tools_required:
+      - "formatador"
+      - "calculador_confianca"
+    timeout: 10
+    retry_count: 1
+
+  tarefa_persistencia_dados:
+    name: "Armazenamento de Dados da Análise"
+    description: "Armazenar os resultados da análise no banco de dados para referência futura e análises estatísticas"
+    expected_output: "Confirmação de armazenamento bem-sucedido dos dados com ID da análise, em português"
+    agent: "salvador_dados"
+    priority: "baixa"
+    dependencies: ["tarefa_processamento_resposta"]
+    tools_required:
+      - "conector_banco"
+      - "validador_dados"
+    timeout: 15
+    retry_count: 3
+
+# Fluxos de trabalho - definição dos workflows
+workflows:
+  analise_completa:
+    name: "Fluxo de Análise Completa de Código"
+    description: "Fluxo completo desde análise de código até persistência de dados"
+    tasks:
+      - "tarefa_analise_codigo"
+      - "tarefa_processamento_resposta"
+      - "tarefa_persistencia_dados"
+    execution_mode: "sequencial"
+    failure_strategy: "parar_no_primeiro_erro"
+
+  analise_rapida:
+    name: "Fluxo de Análise Rápida"
+    description: "Análise rápida sem persistência de dados"
+    tasks:
+      - "tarefa_analise_codigo"
+      - "tarefa_processamento_resposta"
+    execution_mode: "sequencial"
+    failure_strategy: "continuar_com_erro"
+
+# Configurações de execução
+execution_config:
+  default_workflow: "analise_completa"
+  max_parallel_tasks: 3
+  task_timeout_buffer: 5  # segundos
+  enable_task_logging: true
+  log_task_details: true
+
+# Configurações de monitoramento
+monitoring:
+  track_execution_time: true
+  track_memory_usage: true
+  alert_on_long_running_tasks: true
+  long_running_threshold: 45  # segundos
+
+# Configurações de erro
+error_handling:
+  max_retries_per_task: 3
+  retry_delay: 2  # segundos
+  escalation_timeout: 120  # segundos
+  log_errors: true
+  send_error_notifications: false

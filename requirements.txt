@@ -1,0 +1,37 @@
+# FastAPI and Web Framework
+fastapi
+uvicorn
+pydantic
+
+# Database
+sqlalchemy
+asyncpg
+alembic
+
+# CrewAI (for future integration)
+crewai
+langchain
+
+# Code Analysis
+ast-tools
+pylint
+flake8
+bandit
+
+# Async and Utilities
+asyncio-tools
+python-multipart
+python-dotenv
+
+# Logging and Monitoring
+structlog
+
+# Testing
+pytest
+pytest-asyncio
+httpx
+
+# Development
+black
+isort
+mypy
