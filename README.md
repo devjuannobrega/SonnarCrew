@@ -16,7 +16,7 @@ cd SonnarCrew
 # Windows
 start.cmd
 
-# No menu, escolha a opção 1: "BUILD COMPLETO + VALIDAÇÕES"
+# No menu, escolha a opção:
 # Depois escolha "Subir stack completa"
 
 ## 📋 Visão Geral
