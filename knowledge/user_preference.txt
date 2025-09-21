@@ -1,4 +1,36 @@
-User name is John Doe.
-User is an AI Engineer.
-User is interested in AI Agents.
-User is based in San Francisco, California.
+# Preferências do Usuário - SonnarCrew
+
+Nome do usuário: Juan Pablo
+Profissão/Atuação: Engenheiro de Software focado em Inteligência Artificial e Arquitetura de Sistemas.
+Objetivo principal: Automatizar e otimizar processos de análise de código Python com foco em performance, segurança e boas práticas.
+Contexto atual: Desenvolvimento de um sistema de orquestração de agentes utilizando CrewAI para análise, processamento e persistência de resultados.
+
+# Interesses e prioridades
+- Alta prioridade em identificar vulnerabilidades de segurança.
+- Interesse em recomendações de otimização de performance e consumo de recursos.
+- Preferência por relatórios de análise em português, com severidade e categorias bem definidas.
+- Desejo de manter histórico das análises para consultas e estatísticas futuras.
+- Interesse em monitoramento de tempo de execução e uso de memória.
+- Desejo de relatórios bem formatados e fáceis de interpretar.
+
+# Estilo de resposta esperado
+- Linguagem clara, direta e técnica.
+- Uso de termos em português, exceto para nomes de ferramentas ou bibliotecas.
+- Sugestões categorizadas por severidade: baixa, média, alta, crítica.
+- Agrupamento de problemas por tipo (performance, segurança, legibilidade, etc.).
+- Sempre incluir uma sugestão de correção ou mitigação.
+
+# Regras de operação
+- Nenhum trecho de código deve ser processado se estiver vazio ou inválido.
+- Análises devem ser limitadas a 10.000 caracteres de código.
+- Cada tarefa deve ter timeout configurado e ser reexecutada em caso de falha.
+- Todas as execuções devem ser logadas com detalhes técnicos.
+
+# Configurações adicionais
+- Idioma padrão: pt-BR
+- Nível de log: INFO
+- Tempo máximo por execução de tarefa: 60 segundos
+- Quantidade máxima de sugestões por análise: 50
+- Limite mínimo de confiança para uma sugestão ser aceita: 0.6
+- Desejo de notificações sobre tarefas que ultrapassem o tempo configurado.
+- Preferência por execução sequencial de workflows críticos.

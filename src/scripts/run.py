@@ -8,25 +8,16 @@ import os
 import sys
 import uvicorn
 from pathlib import Path
-
-# CORREÇÃO: Encontrar a raiz do projeto corretamente
 current_file = Path(__file__).resolve()
-
-# O script está em: sonnarcrew/src/scripts/run.py
-# A raiz é: sonnarcrew/
-# Então precisamos subir 2 níveis: scripts/ -> src/ -> raiz/
 project_root = current_file.parent.parent.parent
-
-# Verificar se realmente encontrou a raiz do projeto
 expected_files = ["main.py", "requirements.txt", ".env", "docker-compose.yml"]
 found_indicators = [f for f in expected_files if (project_root / f).exists()]
 
 if not found_indicators:
-    # Se não encontrou arquivos da raiz, tentar outros caminhos
     possible_roots = [
-        current_file.parent.parent.parent,  # scripts -> src -> raiz
-        current_file.parent.parent,  # scripts -> src (caso src seja a raiz)
-        Path.cwd(),  # diretório atual
+        current_file.parent.parent.parent,
+        current_file.parent.parent,
+        Path.cwd(),
     ]
 
     for possible_root in possible_roots:
@@ -35,7 +26,6 @@ if not found_indicators:
             project_root = possible_root
             break
 
-# Adicionar raiz do projeto ao Python path
 sys.path.insert(0, str(project_root))
 
 print(f"📁 Diretório atual do script: {current_file.parent}")
@@ -44,20 +34,14 @@ print(f"📁 Raiz do projeto detectada: {project_root}")
 
 def load_env_variables():
     """Carregar variáveis de ambiente do arquivo .env"""
-
-    # Verificar se .env existe na raiz do projeto
     env_file = project_root / ".env"
-
     print(f"🔍 Procurando arquivo .env em: {env_file}")
-
     if env_file.exists():
         print("✅ Arquivo .env encontrado!")
-
         try:
             from dotenv import load_dotenv
             load_dotenv(env_file)
 
-            # Verificar se as variáveis foram carregadas
             db_host = os.getenv("DB_HOST")
             db_user = os.getenv("DB_USER")
             db_password = os.getenv("DB_PASSWORD")

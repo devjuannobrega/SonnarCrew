@@ -15,7 +15,6 @@ DATABASE_URL = os.getenv(
     "postgresql+asyncpg://postgres:password@localhost:5432/code_analysis_db"
 )
 
-# Create async engine
 engine = create_async_engine(
     DATABASE_URL,
     echo=True,
@@ -24,16 +23,13 @@ engine = create_async_engine(
     max_overflow=20
 )
 
-# Create async session maker
 async_session_maker = async_sessionmaker(
     engine, 
     class_=AsyncSession, 
     expire_on_commit=False
 )
 
-# Base class for models
 Base = declarative_base()
-
 class AnalysisHistory(Base):
     """Database model for analysis history"""
     __tablename__ = "analysis_history"
@@ -75,7 +71,6 @@ async def init_database():
         logger.error(f"Failed to initialize database: {e}")
         raise
 
-# Raw PostgreSQL connection for specific operations
 async def get_raw_connection():
     """Get raw asyncpg connection for advanced operations"""
     return await asyncpg.connect(

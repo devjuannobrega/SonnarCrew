@@ -1,18 +1,11 @@
 from fastapi import FastAPI, HTTPException, Depends
 from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel
-from typing import List
-import asyncio
 from datetime import datetime
 import logging
-
-from src.agents.code_analyzer_agent import CodeAnalyzerAgent
 from src.database.database import get_db_session, create_tables
 from src.models.analysis import AnalysisRequest, AnalysisResponse
 from src.services.analysis_service import AnalysisService
 from src.crew.orchestrator import CrewOrchestrator
-
-# Configure logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
